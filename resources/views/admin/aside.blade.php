@@ -409,6 +409,9 @@
                         @yield('brand-index')
                         @yield('brand-create')
                         @yield('brand-edit')
+                        @yield('extrafield-index')
+                        @yield('extrafield-create')
+                        @yield('extrafield-edit')
                     </div>
                 </div>
             </div>

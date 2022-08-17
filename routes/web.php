@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CarasoulController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExtrafieldsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/carasoul', CarasoulController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandsController::class);
+    Route::resource('/extrafields', ExtrafieldsController::class);
 });
 Auth::routes();
 
