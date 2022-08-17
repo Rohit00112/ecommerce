@@ -46,7 +46,7 @@
                                 </th>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $key => $category)
+                                @foreach ($categories as $category)
                                     <tr>
                                         <td>
                                             {{ $category->SN }}

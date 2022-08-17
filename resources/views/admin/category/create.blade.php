@@ -47,9 +47,10 @@
                         </div>
                         <div class="form-group">
                             <label for="is_parent">Is Parent</label>
-                            <select name="is_parent" class="form-control" id="is_parent">
-                                <option value="1" onclick="showHide()">Yes</option>
-                                <option value="0" onclick="showHide()">No</option>
+                            <select name="is_parent" onchange="showHide()" class="form-control" id="is_parent">
+                                <option>Select</option>
+                                <option value="1" >Yes</option>
+                                <option value="0" >No</option>
                             </select>
                         </div>
                         <div class="form-group" id="parent_id">

@@ -405,6 +405,7 @@
                         @yield('carousel-edit')
                         @yield('category-index')
                         @yield('category-create')
+                        @yield('category-edit')
                     </div>
                 </div>
             </div>
