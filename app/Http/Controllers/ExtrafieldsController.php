@@ -66,9 +66,11 @@ class ExtrafieldsController extends Controller
      * @param  \App\Models\extrafields  $extrafields
      * @return \Illuminate\Http\Response
      */
-    public function edit(extrafields $extrafields)
+    public function edit($extrafields)
     {
         //
+        $extrafields = extrafields::findorfail($extrafields);
+        return view('admin.extrafields.edit',compact('extrafields'))->with('categories', category::all());
     }
 
     /**
@@ -78,9 +80,19 @@ class ExtrafieldsController extends Controller
      * @param  \App\Models\extrafields  $extrafields
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, extrafields $extrafields)
+    public function update(Request $request,  $extrafields)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'category_id' => 'required',
+            'value' => 'required',
+        ]);
+        $extrafields = extrafields::findorfail($extrafields);
+        $extrafield = $request->all();
+        $extrafields->update($extrafield);
+        // dd($extrafield);
+        return redirect()->route('extrafields.index');
     }
 
     /**
@@ -89,8 +101,11 @@ class ExtrafieldsController extends Controller
      * @param  \App\Models\extrafields  $extrafields
      * @return \Illuminate\Http\Response
      */
-    public function destroy(extrafields $extrafields)
+    public function destroy($extrafields)
     {
         //
+        $extrafields = extrafields::findorfail($extrafields);
+        $extrafields->delete();
+        return redirect()->route('extrafields.index');
     }
 }

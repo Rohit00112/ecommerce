@@ -1,29 +1,30 @@
 @extends('admin.aside')
-@section('extrafield-create')
-<div class="container"
+@section('extrafield-edit')
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Create Extra Field</h3>
+                    <h3 class="card-title">Edit Extra Field</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('extrafields.store') }}" method="POST">
+                    <form action="{{ route('extrafields.update', $extrafields->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{ $extrafields->name }}">
                         </div>
                         <div class="form-group">
                             <label for="value">Value</label>
-                            <input type="text" class="form-control" id="value" name="value" placeholder="Enter value">
+                            <input type="text" class="form-control" id="value" name="value" placeholder="Enter value" value="{{ $extrafields->value }}">
                         </div>
                         <div class="form-group">
                             <label for="category_id">Category</label>
                             <select class="form-control" id="category_id" name="category_id">
                                 <option value="">Select category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    <option value="{{ $category->id }}" {{ $extrafields->category_id == $category->id ? 'selected' : '' }}>{{ $category->title }}</option>
                                 @endforeach
                             </select>
                         </div>
