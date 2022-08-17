@@ -406,6 +406,9 @@
                         @yield('category-index')
                         @yield('category-create')
                         @yield('category-edit')
+                        @yield('brand-index')
+                        @yield('brand-create')
+                        @yield('brand-edit')
                     </div>
                 </div>
             </div>

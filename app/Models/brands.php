@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class brands extends Model
 {
     use HasFactory;
-    protected $fillable = ['SN','title', 'slug', 'image', 'icon', 'summary', 'parent_id','uploader_id', 'is_parent'];
+    protected $fillable = ['title', 'image', 'icon', 'description', 'uploader_id'];
 }

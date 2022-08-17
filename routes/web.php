@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CarasoulController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
     Route::resource('/carasoul', CarasoulController::class);
     Route::resource('/category', CategoryController::class);
+    Route::resource('/brand', BrandsController::class);
 });
 Auth::routes();
 
