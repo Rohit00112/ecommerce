@@ -56,6 +56,13 @@ class BrandsController extends Controller
             $image->move($path, $imageName);
             $brand['image'] = $path . '/' . $imageName;
         }
+        if ($request->hasFile('icon')) {
+            $icon = $request->file('icon');
+            $iconName = 'icon' . now()->format('Y-m-d-H-is') . '.' . str::random(5) . '.' . $icon->getClientOriginalExtension();
+            $path = 'uploads/brands/';
+            $icon->move($path, $iconName);
+            $brand['icon'] = $path . '/' . $iconName;
+        }
         brands::create($brand);
         return redirect()->route('brand.index')->with('success', 'Brand created successfully');
     }
@@ -97,7 +104,6 @@ class BrandsController extends Controller
         $request->validate([
             'title' => 'required',
             'image' => 'required',
-            'icon' => 'required',
             'description' => 'required',
         ]);
         $brands = brands::findorfail($brands);

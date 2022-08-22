@@ -42,12 +42,16 @@
                                                 <td>{{ $carasoul->description }}</td>
                                                 <td>
                                                     <a href="{{ route('carasoul.edit', $carasoul->id) }}"
-                                                        class="btn btn-primary">Edit</a>
+                                                        class="btn btn-primary">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                     <form action="{{ route('carasoul.destroy', $carasoul->id) }}" method="POST"
                                                         class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>

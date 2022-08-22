@@ -45,12 +45,22 @@ class CategoryController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'image' => 'required',
-            'icon' => 'required',
+            'icon' => 'nullable',
             'summary' => 'required',
-            // 'parent_id' => 'required',
+            'parent_id' => 'nullable|exists:categories,id',
+            'sec_parent_id' => 'nullable|exists:categories,id',
             'is_parent' => 'in:0,1',
         ]);
         $category = $request->all();
+        if($request->is_parent == 1){
+            $category['parent_id'] = null;
+        }else{
+            if($request->sec_parent_id == null){
+                $category['parent_id'] = $request->parent_id;
+            }else{
+                $category['parent_id'] = $request->sec_parent_id;
+            }
+        }
         $category['uploader_id'] = Auth::user()->id;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -100,8 +110,6 @@ class CategoryController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'image' => 'required',
-            'icon' => 'required',
-            'summary' => 'required',
             // 'parent_id' => 'required',
             'is_parent' => 'in:0,1',
         ]);
@@ -130,5 +138,33 @@ class CategoryController extends Controller
         //
         $category->delete();
         return redirect()->route('category.index');
+    }
+
+    public function subCats(Request $request)
+    {
+        $category = category::find($request->id);
+        if($category == null){
+            return response()->json([
+                'status' => false,
+                'data' => $request->id,
+            ]);
+        }
+        $outupt = '';
+        foreach ($category->extraFields as  $extra) {
+            $select_opt = explode(',', $extra->value);
+            $outupt .= '<div class="form-group">
+                            <label for="'.$extra->name.'">'.$extra->name.'</label>
+                            <select class="form-control" name="extra_fields[]">';
+            foreach ($select_opt as  $opt) {
+                $outupt .= '<option value="'.$opt.'">'.$opt.'</option>';
+            }
+            $outupt .= '</select>
+                        </div>';
+        }
+        return response()->json([
+            'status' => true,
+            'extra_fields' => $outupt,
+            'data' => $category->subCategories,
+        ]);
     }
 }

@@ -45,14 +45,14 @@
                                             <td>
                                                 <a href="{{ route('brand.edit', $brand->id) }}" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-edit"></i>
-                                                    Edit
+                                                    
                                                 </a>
                                                 <form action="{{ route('brand.destroy', $brand->id) }}" method="POST" class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="fa fa-trash"></i>
-                                                        Delete
+                                                        
                                                     </button>
                                                 </form>
                                             </td>

@@ -48,18 +48,23 @@
                         <div class="form-group">
                             <label for="is_parent">Is Parent</label>
                             <select name="is_parent" onchange="showHide()" class="form-control" id="is_parent">
-                                <option>Select</option>
                                 <option value="1" >Yes</option>
                                 <option value="0" >No</option>
                             </select>
                         </div>
-                        <div class="form-group" id="parent_id">
+                        <div class="form-group" id="parent_id" style="display: none">
                             <label for="parent_id">Parent Id</label>
-                            <select name="parent_id" class="form-control" id="parent_id">
+                            <select name="parent_id" class="form-control" id="parent__id">
                                 <option value="">No Parent</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group" id="sec_parent_id" style="display: none">
+                            <label for="sec_parent_id">Parent Id</label>
+                            <select name="sec_parent_id" class="form-control" id="sec__parent_id">
+                                <option value="">No Parent</option>
                             </select>
                         </div>
                         <br>
@@ -80,6 +85,10 @@
         </div>
     </div>
 </div>
+
+@endsection
+@section('scripts')
+    
 <script>
     function showHide() {
         var is_parent = $('#is_parent').val();
@@ -89,6 +98,30 @@
             $('#parent_id').show();
         }
     }
+    $('#parent__id').change(function (e) { 
+        e.preventDefault();
+        var id = $(this).val();
+        $.ajax({
+            url: "{{ route('api.sub_cat') }}",
+            type: 'POST',
+            data: {
+                id: id,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if(response.status){
+                    $('#sec_parent_id').show();
+                    $('#sec__parent_id').empty();
+                    $('#sec__parent_id').append('<option value="">No Parent</option>');
+                    var data = response.data;
+                    $.each(data, function (indexInArray, valueOfElement) { 
+                         $('#sec__parent_id').append('<option value="' + valueOfElement.id + '">' + valueOfElement.title + '</option>');
+                    });
+                }else{
+                    $('#sec_parent_id').hide();
+                }
+            }
+        });
+    });
 </script>
-
 @endsection

@@ -36,12 +36,6 @@
                                     summary
                                 </th>
                                 <th>
-                                    is_parent
-                                </th>
-                                <th>
-                                    parent_id
-                                </th>
-                                <th>
                                     Action
                                 </th>
                             </thead>
@@ -67,20 +61,16 @@
                                             {{ $category->summary }}
                                         </td>
                                         <td>
-                                            {{ $category->is_parent }}
-                                        </td>
-                                        <td>
-                                            {{ $category->parent_id }}
-                                        </td>
-                                        <td>
                                             <a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-edit">Edit</i>
+                                                <i class="fa fa-edit"></i>
+                                                
                                             </a>
                                             <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="d-inline-block">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash">Delete</i>
+                                                    <i class="fa fa-trash"></i>
+                                                    
                                                 </button>
                                             </form>
                                         </td>

@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CarasoulController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExtrafieldsController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandsController::class);
     Route::resource('/extrafields', ExtrafieldsController::class);
+    Route::resource('/products', ProductController::class);
 });
 Auth::routes();
 
